@@ -17,6 +17,9 @@ function NavigationBar() {
       <Link style={navStyle} to="/listings">
         <li>Listings</li>
       </Link>
+      <Link style={navStyle} to="/addlisting">
+        <li>New Listing</li>
+      </Link>
       </ul>
     </nav>
   );

@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+const cors = require('cors');
+const bodyParser = require('body-parser')
 
 const expressError = require('./utils/ExpressError');
 const catchAsync = require('./utils/CatchAsync');
@@ -24,9 +26,11 @@ db.once("open", ()=>{
 
 const app = express();
 
+app.use(cors())
 
 app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'));
+app.use(bodyParser.json());
 
 const validateListing = (req, res, next)=>{
     const { error } = listingSchima.validate(req.body);
@@ -52,8 +56,8 @@ app.get('/listings/new', (req, res)=>{
 });
 
 
-app.post('/listings', validateListing, catchAsync(async (req,res) =>{
-    const listing = new Listing(req.body.listing);
+app.post('/api/listings',cors() ,catchAsync(async (req,res) =>{
+    const listing = new Listing(req.body);
     await listing.save();
     //res.redirect(`/listings/${listing._id}`)
 }));
@@ -101,3 +105,4 @@ app.use((err, req, res, next)=>{
 app.listen(5000, ()=>{
     console.log('Sell It Server is running')
 });
+

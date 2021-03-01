@@ -8,9 +8,6 @@ function Listings() {
     //runs automatically when the component is mounted
     useEffect(() => {
         fetchListings();
-        return () =>{
-            destroyJson(listings)
-        }
 
     }, [listings])
     const fetchListings = async () =>{
@@ -30,8 +27,5 @@ function Listings() {
     
 }
 
-function destroyJson(listings){
-    listings= [];
-}
 
 export default Listings;

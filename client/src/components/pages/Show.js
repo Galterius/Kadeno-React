@@ -8,11 +8,8 @@ function Listing({ match }) {
     //runs automatically when the component is mounted
     useEffect(() => {
         fetchListing();
-        return () =>{
-            destroyJson(listing)
-        }
 
-    }, [listing])
+    }, [])
 
     const fetchListing = async () =>{
         const fetchItem = await fetch(`/api/listings/${match.params.id}`)
@@ -23,17 +20,14 @@ function Listing({ match }) {
     }
 
     return (
-        <div>
-            <h3 key={listing._id}>{listing.title}</h3>
-            <img key={listing._id} src={listing.image} />
-            <p key={listing._id}>{listing.description}</p>
+        <div key={listing._id}>
+            <h3 >{listing.title}</h3>
+            <img src={listing.image} />
+            <p>{listing.description}</p>
         </div>
     );
     
 }
 
-function destroyJson(listing){
-    listing= {};
-}
 
 export default Listing;
