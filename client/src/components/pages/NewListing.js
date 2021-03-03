@@ -18,32 +18,34 @@ function NewListing(){
     }
 
     return(
-        <div>
-            <form onSubmit={handleSubmit}>
-            <h3>Add a new listing</h3>
-            <label>
-                Title:
+        <div className="row">
+            <div className="col-6 offset-3">
+            <h3 className="text-center">New Listing</h3>
+            <form noValidate className="validated" onSubmit={handleSubmit}>
+            
+            <div className="mb-3">
+                <label htmlFor="titile" className="form-label">Title</label>
                 <input type="text" name="title" value={title} onChange={(e) => setTitle(e.target.value)}/>
-            </label>
-            
+            </div>
 
-            <label>
-                Pricing:
+            <div className="mb-3">
+                <label htmlFor="price" className="form-label">Price</label>
                 <input type="text" name="pricing" value={price} onChange={(e) => setPrice(e.target.value)}/>
-            </label>
+            </div>
 
-            <label>
-                Image:
+            <div className="mb-3">
+                <label htmlFor="price" className="form-label">Image</label>
                 <input type="text" name="image" value={image} onChange={(e) => setImage(e.target.value)}/>
-            </label>
+            </div>
             
-            <label>
-                Description:
-                <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)}/>
-            </label>
+            <div className="mb-3">
+                <label htmlFor="description" className="form-label">Description</label>
+                <textarea cols="10" rows="3" className="form-control" type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+            </div>
 
             <button>Add Listing</button>
             </form>
+            </div>
         </div>
         
     )

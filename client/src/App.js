@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-import Listings from './components/pages/Listings';
+import Listings from './components/pages/Listings'
 import About from './components/pages/About'
 import Home from './components/pages/Home'
 import Show from './components/pages/Show'
 import NewListing from './components/pages/NewListing'
+import Edit from './components/pages/Edit'
 
 import  NavigationBar  from './components/NavigationBar';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -18,11 +20,12 @@ function App() {
     <div className="App">
       <NavigationBar />
       <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/listings" exact component={Listings}/>
+        <Route exact path="/" component={Home} />
         <Route path="/about" component={About}/>
+        <Route exact path="/listings" component={Listings}/>
+        <Route exact path='/listing/:id' component={Show}/>
+        <Route exact path='/listing/edit/:id' component={Edit} />
         <Route path="/addlisting" component={NewListing} />
-        <Route path='/listing/:id' component={Show}/>
       </Switch>
     </div>
     </Router>

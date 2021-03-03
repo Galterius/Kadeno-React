@@ -14,7 +14,8 @@ const path = require('path');
 mongoose.connect('mongodb://localhost:27017/Sell_It', {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 });
 
 const db = mongoose.connection;
@@ -76,16 +77,16 @@ app.get('/listings/:id/edit', catchAsync(async (req,res)=>{
     res.render('listings/edit', {listing});
 }));
 
-app.put('/listings/:id', validateListing, catchAsync(async (req,res)=>{
-    const { id } = req.params;
-    const listing = await Listing.findByIdAndUpdate(id, {...req.body.listing})
-    res.redirect(`/listings/${listing._id}`)
-}));
+app.put('/api/listings/:id',cors(), async (req,res)=>{
+    const { id } = req.body;
+    const listing = await Listing.findByIdAndUpdate(id, {...req.body})
+});
 
-app.delete('/listings/:id', catchAsync(async (req, res)=>{
+app.delete('/api/listings/:id', cors(), catchAsync(async (req, res)=>{
     const { id } = req.params;
     await Listing.findByIdAndDelete(id);
-    res.redirect('/listings')
+    console.log("deleted");
+    // res.redirect('/listings')
 }));
 
 app.all('*', (req, res, next) =>{
@@ -99,7 +100,7 @@ app.use((err, req, res, next)=>{
         err.message = 'Something went wrong'
     }
 
-    res.status(status).render('error', {err})
+    //res.status(status).render('error', {err})
 })
 
 app.listen(5000, ()=>{
